@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/marker.png" type="image/x-icon">
+    <title>Thrasher | Магазин</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/shop.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- Меню сайта -->
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+            <div class="container-fluid">
+                <a href="main.html" class="navbar-brand"><img src="img/thrasher-logo.png"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#NavbarResponsive">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="NavbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="main.html" class="nav-link">Главная</a>
+                        </li>
+                        <li class="nav-item  active">
+                            <a href="shop.html" class="nav-link">Товары</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="events.html" class="nav-link">События</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="history.html" class="nav-link">О бренде</a>
+                        </li>
+                        <li>
+                            <button class="btn btn-primary" id="myBtn" class="btn btn-primary">Корзина
+                                ({{amounts}})</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="jumbotron container-fluid">
+            <div class="container-fluid text-center nb-new">
+                <h5 class="text-center display-3" style="padding-bottom: 50px;">
+                    КАТЕГОРИИ
+                </h5>
+                <div class="row container-fluid categories" style="padding-bottom: 35px; margin-bottom: 35px;" >
+                    <div class="col-lg-3 col-6 col-md-3 col-sm-3 col-xl-3 navigation-item" id="tshirt">
+                        <div class="navigation-item-icon">
+                            <img src="img/t-shirt.png" width="55px" height="85px">
+                        </div>
+                        <h4 class="navigation-item-headline">ФУТБОЛКИ</h4>
+                    </div>
+                    <div class="col-lg-3 col-6 col-md-3 col-sm-3 col-xl-3 navigation-item" id="hudi">
+                        <div class="navigation-item-icon">
+                            <img src="img/hudi.png" width="35px" height="85px"></div>
+                        <h4 class="navigation-item-headline">ХУДИ</h4>
+                    </div>
+                    <div class="col-lg-3 col-6 col-md-3 col-sm-3 col-xl-3 navigation-item" id="brk">
+                        <div class="navigation-item-icon">
+                            <img src="img/shtan.png" width="55px" height="85px">
+                        </div>
+                        <h4 class="navigation-item-headline">БРЮКИ</h4>
+                    </div>
+                    <div class="col-lg-3 col-6 col-md-3 col-sm-3 col-xl-3 navigation-item" id="acces">
+                        <div class="navigation-item-icon">
+                            <img src="img/accesoar.png" width="77px" height="85px">
+                        </div>
+                        <h4 class="navigation-item-headline">АКСЕСУАРЫ</h4>
+                    </div>
+                </div>
+            </div>
+
+            <section class="products">
+                <div id="block" class="tshirt row">
+                    <div class="col-lg-4 cards text-center tshirt" v-for="model in sortedList">
+                        <img :src="model.img" width="auto" />
+                        <h3>{{model.name}}</h3>
+                        <p>{{model.cost}} $</p>
+                        <input class="form-control" type="number" value="0" min="0" v-model="model.amount"><br>
+                        <button class="btn btn-success" v-on:click="Add(model)">В корзину</button>
+                    </div>
+                </div>
+
+                <div id="block" class="hudi row">
+                    <div class="col-lg-4 cards text-center" v-for="model in sortedList">
+                        <img :src="model.img" width="auto" />
+                        <h3>{{model.name}}</h3>
+                        <p>{{model.cost}} $</p>
+                        <input class="form-control" type="number" value="0" min="0" v-model="model.amount"><br>
+                        <button class="btn btn-success" v-model="model.amount" v-on:click="Add(model)">В корзину</button>
+                    </div>
+                </div>
+
+                <div id="block" class="brk row">
+                    <div class="col-lg-4 cards text-center" v-for="model in sortedList">
+                        <img :src="model.img" width="auto" />
+                        <h3>{{model.name}}</h3>
+                        <p>{{model.cost}} $</p>
+                        <input class="form-control" type="number" value="0" min="0" v-model="model.amount"><br>
+                        <button class="btn btn-success" v-model="model.amount" v-on:click="Add(model)">В корзину</button>
+                    </div>
+                </div>
+
+                <div id="block" class="acces row">
+                    <div class="col-lg-4 cards text-center" v-for="model in sortedList">
+                        <img :src="model.img" width="auto" />
+                        <h3>{{model.name}}</h3>
+                        <p>{{model.cost}} $</p>
+                        <input class="form-control" type="number" value="0" min="0" v-model="model.amount"><br>
+                        <button class="btn btn-success" v-model="model.amount" v-on:click="Add(model)">В корзину</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Корзина</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            v-on:click="AddSS(model)">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="object" class="modal-body" v-for="model in models">
+
+                        <div v-if="model.inBasket == true">
+                            <div class="line">
+                                <span id="name">{{model.name}}</span><br>
+                                <input class="form-control" type="number" value="0" min="0" v-model="model.amount">
+                                <span id="cost">${{+model.cost}}</span>
+                                <button v-on:click="Delete(model)"><img src="img/icon.svg"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr size=3px width=500px>
+                    <p id="total">Итог ${{totalcost}}</p>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-secondary btn-warning" v-on:click="Pay">Оплатить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Футер сайта -->
+    <footer>
+        <div class="container-fluid">
+            <div class="row text-center">
+                <div class="col-12">
+                    <h5 style="padding-top: 15px;">&copy;Егор Мороз</h4>
+                        <h6>Мои контакты</h3>
+                </div>
+                <div class="col-12 text-center">
+                    <a href="https://vk.com/luxury_prince01" target="blank"><i class="fab fa-vk"></i></a>
+                    <a href="https://www.instagram.com/ftriplex/?hl=ru" target="blank"><i
+                            class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="js/vuejs.js"></script>
+    <script src="js/window.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+</body>
+
+
+</html>
